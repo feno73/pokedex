@@ -34,6 +34,20 @@ main > h1 {
     align-items: center;
 }
 
+button {
+    background-color: rgb(116, 0, 0);
+    color: #e4c439;
+    margin-top: 1.5rem;
+    border-radius: 10px;
+    width: 12em;
+    height: 2em;
+    cursor: pointer;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
 .card {
     width: 12rem auto;
     background-color: rgb(116, 0, 0);
@@ -85,4 +99,51 @@ main > h1 {
 }
 .d-none{
     display: none;
+}
+.detalle {
+    max-width: 800px auto;
+    background-color: azure;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    border-top: 0.5px solid #cebf7b;
+    background-color: rgb(116, 0, 0);
+    color: #e4c439;
+    padding: 1rem;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    position: relative;
+    overflow: hidden;
+    transition: 0.2s easy-in-out all;
+
+}
+.detalle span{
+    background-color: rgb(255, 235, 125);
+    color: #333;
+    padding: 0 1em;
+}
+.det--id {
+    background: #cebf7b !important;
+    width: 3rem;
+    padding: 0.1rem !important;
+    font-weight: 700;
+    position: absolute;
+    border-radius: 0 0 10px 0;
+    top: 0;
+    left: 0;
+}
+.det--image {
+    width: max-content;
+    
+}
+
+.det--name {
+    text-transform: capitalize;
+}
+
+.det--type {
+    text-transform: capitalize;
+}
+
+.det--abilities {
+    text-transform: capitalize;
 }
