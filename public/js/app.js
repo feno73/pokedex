@@ -10,23 +10,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 const contenedor = document.querySelector("#app");
 const btnMas = document.querySelector("#mostrar-mas");
-let pokemons = 100;
-const fetchDatos = () => {
-    for (let i = (pokemons - 99); i <= pokemons; i++) {
-        getPokemon(i);
+const btnVolver = document.querySelector("#volver");
+let pokemons = 20;
+const getPokemon = () => __awaiter(void 0, void 0, void 0, function* () {
+    const listaPokemon = new Array;
+    for (let i = (pokemons - 19); i <= pokemons; i++) {
+        const getDatos = yield fetch(`https://pokeapi.co/api/v2/pokemon/${i}`);
+        const datosPokemon = yield getDatos.json();
+        const pokemonTipo = datosPokemon.types.map((poke) => poke.type.name).join(", ");
+        let pokemon = new Pokemon(datosPokemon.id, datosPokemon.name, `${datosPokemon.sprites.front_default}`, pokemonTipo);
+        listaPokemon.push(pokemon);
     }
-};
-const getPokemon = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const datos = yield fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-    const datosPokemon = yield datos.json();
-    const pokemonTipo = datosPokemon.types.map((poke) => poke.type.name).join(", ");
-    let pokemon = new Pokemon(datosPokemon.id, datosPokemon.name, `${datosPokemon.sprites.front_default}`, pokemonTipo);
-    pokemon.mostrarPokemon();
+    listaPokemon.forEach((element) => {
+        element.mostrarPokemon();
+    });
 });
 const verMasPokemons = (e) => {
     //TODO: agarrar el id del ultimo elemento, asignarle ese valor a pokemon y despues sumarle 100 
-    pokemons += 100;
-    fetchDatos();
+    pokemons += 20;
+    getPokemon();
 };
 btnMas === null || btnMas === void 0 ? void 0 : btnMas.addEventListener("click", verMasPokemons);
-fetchDatos();
+getPokemon();

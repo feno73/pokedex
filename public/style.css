@@ -76,6 +76,7 @@ main > h1 {
     width: 150px;
     display: block;
     margin: auto;
+    background-color: aquamarine;
 }
 
 .card--details {

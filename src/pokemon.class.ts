@@ -39,6 +39,7 @@ class Pokemon {
             contenedor.innerHTML = ""
             contenedor.appendChild(this.vDOM)
             btnMas.classList.add("d-none")
+            btnVolver.classList.remove("d-none")
         }
         this.vDOM?.addEventListener("click", verDetalle);
     }

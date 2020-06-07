@@ -33,6 +33,7 @@ class Pokemon {
             contenedor.innerHTML = "";
             contenedor.appendChild(this.vDOM);
             btnMas.classList.add("d-none");
+            btnVolver.classList.remove("d-none");
         };
         (_a = this.vDOM) === null || _a === void 0 ? void 0 : _a.addEventListener("click", verDetalle);
     }
