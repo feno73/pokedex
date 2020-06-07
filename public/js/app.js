@@ -8,34 +8,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const contenedor = document.getElementById("app");
-const pokemons = 100;
+const contenedor = document.querySelector("#app");
+const btnMas = document.querySelector("#mostrar-mas");
+let pokemons = 100;
 const fetchDatos = () => {
-    for (let i = 1; i <= pokemons; i++) {
+    for (let i = (pokemons - 99); i <= pokemons; i++) {
         getPokemon(i);
     }
 };
 const getPokemon = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const datos = yield fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-    const pokemon = yield datos.json();
-    const pokemonTipo = pokemon.types.map((poke) => poke.type.name).join(", ");
-    const transformarPokemon = {
-        id: pokemon.id,
-        nombre: pokemon.name,
-        imagen: `${pokemon.sprites.front_default}`,
-        tipo: pokemonTipo,
-    };
-    mostrarPokemon(transformarPokemon);
+    const datosPokemon = yield datos.json();
+    const pokemonTipo = datosPokemon.types.map((poke) => poke.type.name).join(", ");
+    let pokemon = new Pokemon(datosPokemon.id, datosPokemon.name, `${datosPokemon.sprites.front_default}`, pokemonTipo);
+    pokemon.mostrarPokemon();
 });
-const mostrarPokemon = (pokemon) => {
-    let salida = `
-        <div class="card">
-            <span class="card--id">#${pokemon.id}</span>
-            <img class="card--image" src=${pokemon.imagen} alt="${pokemon.nombre} />
-            <h1 class="card--name">${pokemon.nombre}</h1>
-            <span class="card--details">${pokemon.tipo}</span>
-        </div>
-    `;
-    contenedor.innerHTML += salida;
+const verMasPokemons = (e) => {
+    //TODO: agarrar el id del ultimo elemento, asignarle ese valor a pokemon y despues sumarle 100 
+    pokemons += 100;
+    fetchDatos();
 };
+btnMas === null || btnMas === void 0 ? void 0 : btnMas.addEventListener("click", verMasPokemons);
 fetchDatos();

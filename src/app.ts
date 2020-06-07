@@ -1,15 +1,10 @@
-const contenedor: HTMLElement | any = document.getElementById("app")
-const pokemons: number = 100
+const contenedor: HTMLElement | any = document.querySelector("#app")
+const btnMas: HTMLElement | any = document.querySelector("#mostrar-mas")
+let pokemons: number = 100
 
-interface IPokemon {
-    id: number;
-    nombre: string;
-    imagen: string;
-    tipo: string;
-}
 
 const fetchDatos = (): void => {
-    for (let i = 1; i <= pokemons; i++) {
+    for (let i = (pokemons - 99); i <= pokemons; i++) {
         getPokemon(i)
         
     }
@@ -17,29 +12,20 @@ const fetchDatos = (): void => {
 
 const getPokemon = async (id: number): Promise<void> => {
     const datos: Response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
-    const pokemon: any = await datos.json()
-    const pokemonTipo: string = pokemon.types.map((poke: any) => poke.type.name).join(", ")
+    const datosPokemon: any = await datos.json()
+    const pokemonTipo: string = datosPokemon.types.map((poke: any) => poke.type.name).join(", ")
 
-    const transformarPokemon = {
-        id: pokemon.id,
-        nombre: pokemon.name,
-        imagen: `${pokemon.sprites.front_default}`,
-        tipo: pokemonTipo,
-    }
-
-    mostrarPokemon(transformarPokemon)
+    let pokemon = new Pokemon (datosPokemon.id, datosPokemon.name, `${datosPokemon.sprites.front_default}`, pokemonTipo)
+    pokemon.mostrarPokemon()
 }
 
-const mostrarPokemon = (pokemon: IPokemon): void => {
-    let salida: string = `
-        <div class="card">
-            <span class="card--id">#${pokemon.id}</span>
-            <img class="card--image" src=${pokemon.imagen} alt="${pokemon.nombre} />
-            <h1 class="card--name">${pokemon.nombre}</h1>
-            <span class="card--details">${pokemon.tipo}</span>
-        </div>
-    `
-    contenedor.innerHTML += salida
+
+const verMasPokemons = (e: MouseEvent):void => {
+    //TODO: agarrar el id del ultimo elemento, asignarle ese valor a pokemon y despues sumarle 100 
+    pokemons += 100
+    fetchDatos()
 }
+btnMas?.addEventListener("click", verMasPokemons);
+
 
 fetchDatos()
